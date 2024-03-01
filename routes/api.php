@@ -1,18 +1,18 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\UserController;
+use App\Http\Controllers\Api\V1\CommentController;
+use App\Http\Controllers\Api\V1\FriendshipController;
+
 Route::group([
-'middleware' => 'api',
-'prefix' => 'v1/auth'
+    'middleware' => 'api',
+    'prefix' => 'v1',
 ], function ($router) {
-Route::post('login', [\App\Http\Controllers\Api\V1\AuthController::class,
-'login'])->name('login');
-Route::post('logout', [\App\Http\Controllers\Api\V1\AuthController::class,
-'logout'])->name('logout');
-Route::post('refresh', [\App\Http\Controllers\Api\V1\AuthController::class,
-'refresh'])->name('refresh');
-Route::post('me', [\App\Http\Controllers\Api\V1\AuthController::class,
-'me'])->name('me');
-Route::apiResource('v1/posts',App\Http\Controllers\Api\V1\PostController::class)->middleware('api');
-Route::apiResource('users', UserController::class)->middleware('api');
+    Route::apiResource('users', UserController::class)->middleware('api');
+    Route::apiResource('comments', CommentController::class)->middleware('api');
+    Route::apiResource('friendships', FriendshipController::class)->middleware('api'); 
+    Route::get('/friendships/{username}/{friendUsername}', [FriendshipController::class, 'show']);
+    Route::delete('/friendships/{username}/{friendUsername}', [FriendshipController::class, 'destroy']); 
 });
+
+

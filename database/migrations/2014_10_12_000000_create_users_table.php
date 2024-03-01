@@ -9,13 +9,10 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
             $table->string('username')->unique();
             $table->string('password');
             $table->string('idicon')->nullable();
             $table->integer('num_comments')->default(0);
-            $table->text('comments')->nullable();
-            $table->timestamps();
         });
     }
 

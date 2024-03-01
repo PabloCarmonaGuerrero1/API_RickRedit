@@ -4,23 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFailedJobsTable extends Migration
+class CreatePasswordResetTokensTable extends Migration
 {
-    
     public function up()
     {
-        Schema::create('friendships', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
             $table->string('username');
-            $table->string('username_friend');
+            $table->text('texto');
             $table->timestamps();
-
-
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('friendships');
+        Schema::dropIfExists('comments');
     }
 }
 
