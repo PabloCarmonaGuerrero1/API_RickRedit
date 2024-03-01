@@ -10,6 +10,7 @@ class CreateFailedJobsTable extends Migration
     public function up()
     {
         Schema::create('friendships', function (Blueprint $table) {
+            $table->id();
             $table->string('username');
             $table->string('username_friend');
             $table->timestamps();

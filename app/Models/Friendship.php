@@ -13,6 +13,6 @@ class Friendship extends Model
         'username',
         'username_friend',
     ];
-    protected $primaryKey = 'username';
+    protected $primaryKey = 'id';
 
 }
