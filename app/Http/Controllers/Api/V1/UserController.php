@@ -11,7 +11,6 @@ class UserController extends Controller
 {
     public function index()
     {
-        // Obtener todos los usuarios
         $users = User::all();
         return response()->json($users);
     }
@@ -36,7 +35,6 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validar la solicitud
         $validator = Validator::make($request->all(), [
             'username' => 'required|unique:users',
             'password' => 'required',
@@ -48,21 +46,19 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        // Crear un nuevo usuario
         $user = User::create($request->all());
         return response()->json($user, 201);
     }
 
     public function update(Request $request, $username)
     {
-        // Buscar el usuario por nombre de usuario
+
         $user = User::where('username', $username)->first();
 
         if (!$user) {
             return response()->json(['error' => 'Usuario no encontrado'], 404);
         }
 
-        // Validar la solicitud
         $validator = Validator::make($request->all(), [
             'idicon' => 'nullable',
         ]);
@@ -71,7 +67,7 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        // Actualizar el valor idicon si se proporciona en la solicitud
+
         if ($request->has('idicon')) {
             $user->idicon = $request->input('idicon');
             $user->save();

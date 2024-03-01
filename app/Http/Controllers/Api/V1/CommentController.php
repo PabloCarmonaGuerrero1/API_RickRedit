@@ -11,14 +11,12 @@ class CommentController extends Controller
 {
     public function index()
     {
-        // Obtener todos los comentarios
         $comments = Comment::all();
         return response()->json($comments);
     }
 
     public function show($id)
     {
-        // Obtener un comentario por ID
         $comment = Comment::findOrFail($id);
 
         return response()->json($comment);
@@ -26,7 +24,6 @@ class CommentController extends Controller
 
     public function store(Request $request)
     {
-        // Validar la solicitud
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'texto' => 'required',
@@ -36,14 +33,13 @@ class CommentController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        // Crear un nuevo comentario
         $comment = Comment::create($request->all());
         return response()->json($comment, 201);
     }
 
     public function update(Request $request, $id)
     {
-        // Validar la solicitud
+
         $validator = Validator::make($request->all(), [
             'username' => 'required',
             'texto' => 'required',
@@ -53,7 +49,7 @@ class CommentController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        // Actualizar un comentario por ID
+
         $comment = Comment::findOrFail($id);
         $comment->update($request->all());
         return response()->json($comment, 200);
@@ -61,7 +57,7 @@ class CommentController extends Controller
 
     public function destroy($id)
     {
-        // Eliminar un comentario por ID
+
         $comment = Comment::findOrFail($id);
         $comment->delete();
         return response()->json(null, 204);

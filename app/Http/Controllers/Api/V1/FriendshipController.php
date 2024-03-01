@@ -21,8 +21,6 @@ class FriendshipController extends Controller
             'username_friend' => 'required|string',
         ]);
     
-        // Añadir un dd para depurar y verificar los valores antes de crear la amistad
-
     
         $friendship = Friendship::create([
             'username' => $request->input('username'),
@@ -32,25 +30,24 @@ class FriendshipController extends Controller
     public function show($username = null, $friendUsername = null)
     {
         if ($username === null) {
-            // Si no se proporciona un nombre de usuario, puedes devolver un error o manejarlo de alguna manera específica.
+            
             return response()->json(['error' => 'Se requiere un nombre de usuario.'], 400);
         }
     
         if ($friendUsername === null) {
-            // Si no se proporciona un nombre de amigo, se devolverán todas las amistades para el usuario dado.
+            
             $friendships = Friendship::where('username', $username)->get();
         } else {
-            // Si se proporciona el nombre de un amigo, se busca la amistad específica.
+
             $friendship = Friendship::where('username', $username)
                 ->where('username_friend', $friendUsername)
                 ->first();
     
             if (!$friendship) {
-                // Puedes devolver un error si la amistad no se encuentra.
                 return response()->json(['error' => 'La amistad no fue encontrada.'], 404);
             }
     
-            // Devolver solo la amistad específica.
+
             return response()->json($friendship, 200);
         }
     

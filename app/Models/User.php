@@ -11,6 +11,6 @@ class User extends Model
 
     protected $fillable = ['username', 'password', 'idicon', 'num_comments'];
     public $timestamps = false;
-    protected $primaryKey = 'username';
+    protected $primaryKey = 'id';
 
 }
